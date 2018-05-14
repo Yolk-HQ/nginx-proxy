@@ -19,7 +19,7 @@
 			server 127.0.0.1 down;
 		{{ end }}
 	{{ end }}
-	
+
 {{ end }}
 
 {{ define "location" }}
@@ -317,8 +317,8 @@ server {
 	{{ else }}
 		{{ range $path, $containers := $paths }}
 			{{ $sum := sha1 $path }}
-			{{ $upstream := printf "%s-%s" $host $sum }}
-			{{ template "location" (dict "Path" $path "Proto" $proto "Upstream" $upstream_name "Host" $host "Vhostroot" $vhost_root) }}
+			{{ $upstream := printf "%s-%s" $upstream_name $sum }}
+			{{ template "location" (dict "Path" $path "Proto" $proto "Upstream" $upstream "Host" $host "Vhostroot" $vhost_root) }}
 		{{ end }}
 	{{ end }}
 }
