@@ -118,7 +118,7 @@ log_format vhost '$host $remote_addr - $remote_user [$time_local] '
 
 access_log on;
 error_log /dev/stderr;
-error_log /var/log/nginx/error.log;
+error_log /var/log/nginx/yolk/error.log;
 
 {{ if $.Env.RESOLVERS }}
 resolver {{ $.Env.RESOLVERS }};
@@ -152,6 +152,7 @@ server {
 	listen [::]:80;
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 	return 503;
 }
 
@@ -163,6 +164,7 @@ server {
 	listen [::]:443 ssl http2;
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 	return 503;
 
 	ssl_session_tickets off;
@@ -239,6 +241,7 @@ server {
 	listen [::]:80 {{ $default_server }};
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 	return 301 https://$host$request_uri;
 }
 {{ end }}
@@ -250,6 +253,7 @@ server {
 	listen [::]:443 ssl http2 {{ $default_server }};
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 
 	{{ if eq $network_tag "internal" }}
 	# Only allow traffic from internal clients
@@ -335,6 +339,7 @@ server {
 	listen [::]:80 {{ $default_server }};
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 
 	{{ if eq $network_tag "internal" }}
 	# Only allow traffic from internal clients
@@ -366,6 +371,7 @@ server {
 	listen [::]:443 ssl http2 {{ $default_server }};
 	{{ end }}
 	access_log /var/log/nginx/access.log vhost;
+	access_log /var/log/nginx/yolk/access.log vhost;
 	return 500;
 
 	ssl_certificate /etc/nginx/certs/default.crt;

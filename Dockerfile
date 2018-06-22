@@ -1,5 +1,7 @@
 FROM nginx:1.13
-LABEL maintainer="Jason Wilder mail@jasonwilder.com"
+LABEL maintainer="Ramaneek Gill ramaneek@yolk.ai"
+
+RUN mkdir /var/log/nginx/yolk
 
 # Install wget and install/updates certificates
 RUN apt-get update \
