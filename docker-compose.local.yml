@@ -2,7 +2,7 @@ version: '3'
 services:
   nginx-proxy:
     restart: always
-    build: ${YOLK_REPOS_PATH}/nginx-proxy/
+    build: ${YOLK_REPOS_PATH:-~/Development/yolk}/nginx-proxy/
     networks:
       - nginx-proxy
     ports:
@@ -10,6 +10,6 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
-      - ${YOLK_INSTALL_PATH}/certificates/${VIRTUAL_HOST}.crt:/etc/nginx/certs/${VIRTUAL_HOST}.crt
-      - ${YOLK_INSTALL_PATH}/certificates/${VIRTUAL_HOST}.key:/etc/nginx/certs/${VIRTUAL_HOST}.key
-      - ${YOLK_INSTALL_PATH}/volumes/nginx_logs:/var/log/nginx/yolk
+      - ${YOLK_INSTALL_PATH:-~/.yolk}/certificates/${VIRTUAL_HOST:-yolk.local.com}.crt:/etc/nginx/certs/${VIRTUAL_HOST:-yolk.local.com}.crt
+      - ${YOLK_INSTALL_PATH:-~/.yolk}/certificates/${VIRTUAL_HOST:-yolk.local.com}.key:/etc/nginx/certs/${VIRTUAL_HOST:-yolk.local.com}.key
+      - ${YOLK_INSTALL_PATH:-~/.yolk}/volumes/nginx_logs:/var/log/nginx/yolk
