@@ -3,11 +3,12 @@ LABEL maintainer="Ramaneek Gill ramaneek@yolk.ai"
 
 RUN mkdir /var/log/nginx/yolk
 
-# Install wget and install/updates certificates
+# Install wget, curl and install/updates certificates
 RUN apt-get update \
  && apt-get install -y -q --no-install-recommends \
     ca-certificates \
     wget \
+    curl \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/*
 
