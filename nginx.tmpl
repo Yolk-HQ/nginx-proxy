@@ -58,6 +58,7 @@ location {{ .Path }} {
 					{{ if eq $knownNetwork.Name $containerNetwork.Name }}
 						{{ if ne "premkit_replicated" $containerNetwork.Name}}
 							{{ if ne "statsd_replicated" $containerNetwork.Name}}
+								{{ if ne "ingress" $containerNetwork.Name}}
 								## Can be connect with "{{ $containerNetwork.Name }}" network
 
 								{{/* If only 1 port exposed, use that */}}
@@ -69,6 +70,7 @@ location {{ .Path }} {
 									{{ $port := coalesce $container.Env.VIRTUAL_PORT "80" }}
 									{{ $address := where $container.Addresses "Port" $port | first }}
 									{{ template "upstream" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
+								{{ end }}
 								{{ end }}
 							{{ end }}
 						{{ end }}
